@@ -1,0 +1,184 @@
+<div class="main-body">
+
+              <div>
+                <div class="page-body">
+                  <div class="row">
+
+                    <div class="col-md-12">
+                      <div class="card tabs-card">
+                        <div class="card-header">
+                            <h5>Parámetros de búsqueda</h5>
+                        </div>
+                        <div class="card-block p-0">
+                          <div class="tab-content card-block">
+                            <div class="tab-pane active" id="home3" role="tabpanel">
+
+                              <div class="table-responsive">
+                                <form name="form" novalidate>
+                                  <div>
+
+                                    <div>
+                                      <button type="button" class="btn btn-primary m-b-20" (click)="search()">Consultar</button>
+                                      <button type="button" class="btn btn-primary m-b-20" (click)="clear()">Limpiar</button>
+                                    </div>
+                                  </div>
+                                  <div>
+
+                                    <div>
+                                      <div>
+                                        <label>Nombre</label>
+                                        <div class="input-group">
+                                          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="pName" required>
+                                        </div>
+                                        <!--<div *ngIf="product.invalid && ( (product.dirty || product.touched) || f1.submitted)" class="alert alert-danger">
+                                          <div *ngIf="product.errors.required">
+                                            El campo de producto no puede ser vacío.
+                                          </div>
+                                        </div>-->
+                                      </div>
+
+                                    </div>
+
+                                  </div>
+
+                                </form>
+                              </div>
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                        </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="card tabs-card">
+                        <div class="card-header">
+                            <h5>Lista de usuarios</h5>
+                        </div>
+                        <div class="card-block p-0">
+                          <div class="tab-content card-block">
+                            <div class="tab-pane active" id="home3" role="tabpanel">
+
+                              <div class="table-responsive">
+
+                                <button type="button" class="btn btn-primary m-b-20" (click)="create()">Crear</button>
+                                <table class="table"  class="table table-striped table-bordered nowrap table-hover">
+                                  <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Rol</th>
+                                    <th>Activo</th>
+                                  </tr>
+                                  <tr (click)="onClick(u.idUsuario)" style="cursor: pointer;" *ngFor="let u of usuarios; let i = index">
+                                    <!--<td><a [routerLink]="" (click)="onClick(u.idUsuario)">{{u.idUsuario}}</a></td>-->
+                                    <td>{{u.idUsuario}}</td>
+                                    <td>{{u.nombre}}</td>
+                                    <!--<td>{{c.idRol}}</td>-->
+                                    <td *ngIf="u.idRol ===1">ADMINISTRADOR</td>
+                                    <td *ngIf="u.idRol ===2">AUDITOR</td>
+                                    <td *ngIf="u.idRol ===3">AUXILIAR</td>
+                                    <td *ngIf="u.activo ==='0'">No</td>
+                                    <td *ngIf="u.activo ==='1'">Sí</td>
+                                  </tr>
+
+                                </table>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+
+                    <div class="col-md-12">
+                      <div class="card tabs-card">
+                        <div class="card-header">
+                            <h5>Información del Usuario</h5>
+                        </div>
+                        <div class="card-block p-0">
+                          <div class="tab-content card-block">
+                            <div class="tab-pane active" id="home3" role="tabpanel">
+
+                              <div class="table-responsive">
+                                <form name="form" (ngSubmit)="f.form.valid && crearActualizarUsuario(); f.form.valid && c('Al guardar')" #f="ngForm" novalidate>
+                                  <div>
+
+                                    <div>
+                                      <button type="submit" class="btn btn-primary m-b-20" [disabled]="saveDisabledBtn">Guardar</button>
+                                      <button type="button" class="btn btn-primary m-b-20" (click)="delete()" [disabled]="deleteDisabledBtn">Borrar</button>
+                                      <button type="submit" class="btn btn-primary m-b-20" [disabled]="editDisabledBtn">Editar</button>
+                                      <button type="button" class="btn btn-primary m-b-20" (click)="cancel()" [disabled]="cancelDisabledBtn">Cancelar</button>
+                                    </div>
+                                  </div>
+                                  <div>
+
+                                    <div>
+                                      <div>
+                                        <label>Id</label>
+                                        <div class="input-group">
+                                          <input type="text" class="form-control" name="idUsuario" [readonly]="true"  [(ngModel)]="usuario.idUsuario" #idUsuario="ngModel">
+                                        </div>
+                                        <!--<div *ngIf="product.invalid && ( (product.dirty || product.touched) || f1.submitted)" class="alert alert-danger">
+                                          <div *ngIf="product.errors.required">
+                                            El campo de producto no puede ser vacío.
+                                          </div>
+                                        </div>-->
+                                      </div>
+                                      <div>
+                                        <label>Nombre</label>
+                                        <div class="input-group">
+                                          <input type="text" class="form-control" id="nombre" name="nombre" [readonly]="isReadOnly" [(ngModel)]="usuario.nombre" #nombre="ngModel" required>
+                                        </div>
+                                        <div *ngIf="nombre.invalid && ( (nombre.dirty || nombre.touched) || f.submitted)" class="alert alert-danger">
+                                          <div *ngIf="nombre.errors.required">
+                                            El campo nombre no puede ser vacío.
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div>
+                                        <label>Rol</label>
+                                        <div class="input-group">
+                                          <select class="form-control" name="idRol" [(ngModel)]="usuario.idRol" [disabled]="rolSelectDisabled" #idRol="ngModel" required>
+                                              <option *ngFor="let r of roles" [ngValue]="r.idRol">
+                                                {{ r.nombre}}
+                                              </option>
+                                          </select>
+                                        </div>
+                                        <div *ngIf="idRol.invalid && ( (idRol.dirty || idRol.touched) || f.submitted)" class="alert alert-danger">
+                                          <div *ngIf="idRol.errors.required">
+                                            Debe seleccionar el rol
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div>
+                                        <label>Activo</label>
+                                        <div class="input-group">
+                                          <input class="border-checkbox" type="checkbox" name="activo" [(ngModel)]="usuario.activo" #activo="ngModel" [disabled]="disabled">
+                                          <label *ngIf="usuario.activo" class="border-checkbox-label" for="activo"> Sí</label>
+                                          <label *ngIf="!usuario.activo" class="border-checkbox-label" for="activo"> No</label>
+                                        </div>
+                                      </div>
+
+                                    </div>
+
+                                  </div>
+
+                                </form>
+                              </div>
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
